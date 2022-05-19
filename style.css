@@ -4,4 +4,13 @@ html, body {
     margin: 0px;
     padding: 0px;
     background-color: darkcyan;
+} 
+
+.imglink{ 
+    background: url(http://loremflickr.com/640/480/animals); 
+    width: 40px; 
+    height: 40px; 
+    background-position: center center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
 }

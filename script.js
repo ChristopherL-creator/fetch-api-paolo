@@ -65,12 +65,12 @@ function displayStudents(arrayOFStudents) {
         const studentContainer = document.createElement('div');
         const span = document.createElement('span');
         const img = document.createElement('img');
-
+        img.classList.add('imglink');
         const node = document.createTextNode(' Name: ' + student.name); 
-        const nodeSurname = document.createTextNode(' Surname: ' + student.surname)
-        const nodeDob = document.createTextNode(' Days to birthday: ' + student.getDaysToBirthday())
+        const nodeSurname = document.createTextNode(' Surname: ' + student.surname);
+        const nodeDob = document.createTextNode(' Days to birthday: ' + student.getDaysToBirthday());
         
-
+        span.appendChild(img);
         span.appendChild(node);
         span.appendChild(nodeSurname);
         span.appendChild(nodeDob);

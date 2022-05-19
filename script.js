@@ -83,6 +83,6 @@ function displayStudents(arrayOFStudents) {
 
 
 function convertResultInArrayOfStudents(result) {
-    arrayOFStudents = result.map(obj=> Student.fromObj(obj));
+    arrayOFStudents = result.map(obj => Student.fromObj(obj));
     return arrayOFStudents;
 }

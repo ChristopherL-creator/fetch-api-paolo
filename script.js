@@ -148,4 +148,6 @@ initApp();
 // function convertResultInArrayOfStudents(result) {
 //     arrayOFStudents = result.map(obj => Student.fromObj(obj));
 //     return arrayOFStudents;
-// }
+// } 
+
+//  tasto espandi, fa vedere più dati al cliccare di tasto;

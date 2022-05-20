@@ -1,6 +1,7 @@
 
+//  quando ho tante lambda do un senso di lettura dal basso verso l'alto; 
 
-// // fetch('./student-data.json').then(responseCallBack).then(resultCallBack)
+// fetch('./student-data.json').then(responseCallBack).then(resultCallBack)
 // fetch('./student-data.json').then(responseCallBack).then(resultCallBack).catch(manageError);
 
 // function responseCallBack(response){
@@ -37,52 +38,88 @@
 // }
 
 
-fetch('https://62860d1f96bccbf32d6e2c06.mockapi.io/students').then(responseCallBack).then(resultCallBack).catch(manageError);
+const responseCallBack = (response) => response.json(); 
 
-function responseCallBack(response){
-console.log('Response',  response);
-return response.json();
+
+//  fromObj prende un oggetto e ne crea classe con proprietà dell'oggetto. classe ha funzione in get, 
+// che da date of birth; funzione in set, con cui settare dateofbirth, funzione get per daystobirth;
+const createAvatarImgFromSrc = (src) => {
+                                            const img = document.createElement('img'); 
+                                            img.src = src; 
+                                            img.classList.add('imglink');
+                                            return img;
 }
+const createTextSpan = (text) => { 
+    const span = document.createElement('span'); 
+    //  posso chiamare funzione al posto della costante
+    span.appendChild(document.createTextNode(text)); 
+    return span; 
+} 
+
+const createStudentCard = (student) => { 
+    const studentCard = document.createElement('div'); 
+    studentCard.classList.add('student-card');
+    studentCard.appendChild(createAvatarImgFromSrc(student.imageUrl));
+    studentCard.appendChild(createTextSpan(' Name: ' + student.name + '; ' + 
+                                           ' Surname: ' + student.surname + '; ' + 
+                                           ' Days to birthday: ' + student.getDaysToBirthday() + '.')); 
+    return studentCard;
+} 
+
+const createArrayOfStudentsCard = (arrayOfStudents) => arrayOfStudents.map(student => createStudentCard(student));
 
 
-function resultCallBack(result){
-console.log('Result', result);
-const array = convertResultInArrayOfStudents(result);
-console.log('array', result)
-displayStudents(array)
-}
-
-function manageError(error) {
-    console.error(error)
-}
-
-
-function displayStudents(arrayOFStudents) {
+const displayStudents = (arrayOfStudents) => { 
     const arrayContainer = document.createElement('div');
-
-    for (let i = 0; i < arrayOFStudents.length; i++) {
-        const student = arrayOFStudents[i];
-        const studentContainer = document.createElement('div');
-        const span = document.createElement('span');
-        const img = document.createElement('img');
-        img.classList.add('imglink');
-        const node = document.createTextNode(' Name: ' + student.name + ';'); 
-        const nodeSurname = document.createTextNode(' Surname: ' + student.surname + ';');
-        const nodeDob = document.createTextNode(' Days to birthday: ' + student.getDaysToBirthday() + '.');
-        
-        span.appendChild(img);
-        span.appendChild(node);
-        span.appendChild(nodeSurname);
-        span.appendChild(nodeDob);
-        studentContainer.appendChild(span);
-        arrayContainer.appendChild(studentContainer);
-    }
-
+    
+    arrayContainer.append(...createArrayOfStudentsCard(arrayOfStudents));
+    
     document.body.appendChild(arrayContainer);
 }
 
+const convertResultInArrayOfStudents = (result) => result.map(obj => Student.fromObj(obj)); 
 
-function convertResultInArrayOfStudents(result) {
-    arrayOFStudents = result.map(obj => Student.fromObj(obj));
-    return arrayOFStudents;
-}
+const resultCallBack = (result) => displayStudents(convertResultInArrayOfStudents(result));  
+
+const catchError = (error) => console.log(error); 
+
+const initApp = () => fetch('https://62860d1f96bccbf32d6e2c06.mockapi.io/students') 
+                     .then(responseCallBack) 
+                     .then(resultCallBack) 
+                     .catch(catchError);
+
+initApp();
+
+// function createTextSpan(text){ 
+//     const span = document.createElement('span'); 
+//  posso chiamare funzione al posto della costante
+//     span.appendChild(document.createTextNode(text)); 
+//     return span;
+// }
+
+// function displayStudents(arrayOfStudents) {
+//     const arrayContainer = document.createElement('div');
+
+    // for (let i = 0; i < arrayOfStudents.length; i++) {
+    //     const student = arrayOfStudents[i];
+        // const studentContainer = document.createElement('div');
+    //     const studentContainer = createStudentCard(student)
+    //     const img = document.createElement('img');
+    //     img.classList.add('imglink');
+    //     studentContainer.appendChild(img);
+        // studentContainer.appendChild(createTextSpan(' Name: ' + student.name + ';' + 
+        //                                             ' Surname: ' + student.surname + ';' + 
+        //                                             ' Days to birthday: ' + student.getDaysToBirthday() + '.'));
+    //     arrayContainer.appendChild(studentContainer);
+    // } 
+    // const arrayOfCard = createArrayOfStudentsCard(arrayOfStudents);
+    // arrayContainer.append(...createArrayOfStudentsCard(arrayOfStudents));
+
+    // document.body.appendChild(arrayContainer);
+// }
+
+
+// function convertResultInArrayOfStudents(result) {
+//     arrayOFStudents = result.map(obj => Student.fromObj(obj));
+//     return arrayOFStudents;
+// }

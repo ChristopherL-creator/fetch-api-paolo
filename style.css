@@ -6,11 +6,25 @@ html, body {
     background-color: darkcyan; 
 } 
 
-.imglink{ 
-    background: url(http://loremflickr.com/640/480/animals); 
+.imglink{  
     width: 15vw; 
     height: 15vw; 
-    background-position: center center; 
+    background-position : center center; 
     background-repeat: no-repeat; 
-    background-size: cover;
+    background-size: cover; 
+    border-radius: 50px;
+} 
+
+.student-card{ 
+    background: rgb(9,121,91);
+    background: linear-gradient(352deg, rgba(9,121,91,1) 26%, rgba(0,255,153,1) 100%);
+    width: fit-content; 
+    min-width: 500px;
+    margin: 10px; 
+    padding: 10px;
+    display: flex;
+    border-radius: 100px;
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(50, 50, 50, 0.81);
+    -moz-box-shadow:    5px 5px 5px 0px rgba(50, 50, 50, 0.81);
+    box-shadow:         5px 5px 5px 0px rgba(50, 50, 50, 0.81);
 }

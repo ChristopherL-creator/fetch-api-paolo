@@ -56,6 +56,28 @@ const createTextSpan = (text) => {
     return span; 
 } 
 
+const deleteCallBack = () => { 
+    initApp();
+}
+
+const deleteStudent = (id) => { 
+    const deleteUrl = 'https://62860d1f96bccbf32d6e2c06.mockapi.io/students/' + id; 
+    const fetchConf = { 
+        method: 'delete' //    se usassi url id normalmente, mi fa funzione GET, quindi iposto DLETE;
+    }
+    fetch(deleteUrl, fetchConf) 
+    .then(responseCallBack) 
+    .then(deleteCallBack);
+}
+
+const createDeleteButton = (id) => { 
+    const button = document.createElement('button'); 
+    button.onclick = () => deleteStudent(id);
+    const node = document.createTextNode('cancella'); 
+    button.appendChild(node); 
+    return button;
+}
+
 const createStudentCard = (student) => { 
     const studentCard = document.createElement('div'); 
     studentCard.classList.add('student-card');
@@ -63,6 +85,7 @@ const createStudentCard = (student) => {
     studentCard.appendChild(createTextSpan(' Name: ' + student.name + '; ' + 
                                            ' Surname: ' + student.surname + '; ' + 
                                            ' Days to birthday: ' + student.getDaysToBirthday() + '.')); 
+    studentCard.appendChild(createDeleteButton(student.id));
     return studentCard;
 } 
 
@@ -70,6 +93,8 @@ const createArrayOfStudentsCard = (arrayOfStudents) => arrayOfStudents.map(stude
 
 
 const displayStudents = (arrayOfStudents) => { 
+    document.body.innerHTML= '';
+
     const arrayContainer = document.createElement('div');
     
     arrayContainer.append(...createArrayOfStudentsCard(arrayOfStudents));
@@ -83,9 +108,10 @@ const resultCallBack = (result) => displayStudents(convertResultInArrayOfStudent
 
 const catchError = (error) => console.log(error); 
 
+//  risultato di fetch è "Promise"; quindi risposta server, e in caso, risultato chiamata;
 const initApp = () => fetch('https://62860d1f96bccbf32d6e2c06.mockapi.io/students') 
-                     .then(responseCallBack) 
-                     .then(resultCallBack) 
+                     .then(responseCallBack) // cosa fare quando arriva risposta sever;
+                     .then(resultCallBack) // cosa fare quando arriva risultato chiamata;
                      .catch(catchError);
 
 initApp();

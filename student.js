@@ -52,9 +52,5 @@ class Student {
     static fromObj(obj) {
         return new Student(obj.id, obj.name, obj.surname, obj.dob, obj.avatar);
     }
-    
-
-
-
 }
 
